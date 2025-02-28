@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Imsakiyah 2025</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #1F4287;
+            --secondary-color: #278EA5;
+            --accent-color: #21E6C1;
+            --dark-color: #071E3D;
+            --light-color: #F2F2F2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(rgba(7, 30, 61, 0.8), rgba(7, 30, 61, 0.9)), url('https://source.unsplash.com/1600x900/?ramadan,mosque') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--light-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 30px auto;
+            background: rgba(31, 66, 135, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .bismillah {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--light-color);
+            opacity: 0.9;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        select {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--dark-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        select:focus {
+            outline: none;
+            box-shadow: 0 4px 12px rgba(33, 230, 193, 0.5);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: var(--dark-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(39, 142, 165, 0.5);
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(39, 142, 165, 0.6);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        #loading {
+            display: none;
+            margin: 15px 0;
+            padding: 10px;
+            text-align: center;
+            color: var(--accent-color);
+            font-style: italic;
+            font-weight: 500;
+            background-color: rgba(7, 30, 61, 0.5);
+            border-radius: 8px;
+        }
+
+        .jadwal-container {
+            max-height: 350px;
+            overflow-y: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            background-color: rgba(7, 30, 61, 0.6);
+            padding: 5px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) rgba(7, 30, 61, 0.5);
+        }
+
+        .jadwal-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .jadwal-container::-webkit-scrollbar-track {
+            background: rgba(7, 30, 61, 0.5);
+            border-radius: 10px;
+        }
+
+        .jadwal-container::-webkit-scrollbar-thumb {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: transparent;
+            color: var(--light-color);
+        }
+
+        th, td {
+            padding: 10px 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        tr {
+            transition: background 0.2s ease;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(7, 30, 61, 0.4);
+        }
+
+        tr:hover {
+            background-color: rgba(39, 142, 165, 0.25);
+        }
+
+        .today {
+            background-color: rgba(33, 230, 193, 0.25) !important;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .decoration {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .decoration-1 {
+            top: -50px;
+            right: -50px;
+        }
+
+        .decoration-2 {
+            bottom: -50px;
+            left: -50px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+                margin: 15px auto;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .bismillah {
+                font-size: 20px;
+            }
+
+            select, button {
+                padding: 10px;
+            }
+        }
+        .doa-container {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(7, 30, 61, 0.8);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.doa-container h2 {
+    font-size: 22px;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.doa-container p {
+    font-size: 18px;
+    color: var(--light-color);
+    margin-bottom: 8px;
+}
+#hadith-container {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9em;
+    font-style: italic;
+    color: inherit;
+    background: none;
+    padding: 5px;
+}
+
+#hadith-text {
+    display: block;
+    font-weight: normal;
+}
+
+#hadith-source {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="decoration decoration-1"></div>
+        <div class="decoration decoration-2"></div>
+        
+        <div class="header">
+            <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</div>
+            <h1>Jadwal Imsakiyah Ramadhan 2025</h1>
+        </div>
+<div class="doa-container">
+    <h2>Doa Sahur (Imsak)</h2>
+    <p class="arabic">نَوَيْتُ صَوْمَ غَدٍ عَنْ أَدَاءِ فَرْضِ شَهْرِ رَمَضَانَ هَذِهِ السَّنَةِ لِلّٰهِ تَعَالَى</p>
+    <p class="latin">Nawaitu shauma ghadin 'an adā'i fardhi syahri Ramadhāna hadzihis sanati lillāhi ta'ālā.</p>
+
+    <h2>Doa Buka Puasa</h2>
+    <p class="arabic">اللّهُمَّ لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ</p>
+    <p class="latin">Allāhumma laka ṣumtu wa bika āmantu wa ‘alaika tawakkaltu wa ‘alā rizqika afṭartu.</p>
+</div>
+<div id="hadith-container">
+    <blockquote id="hadith-text"></blockquote>
+    <cite id="hadith-source"></cite>
+</div>
+        <div class="form-group">
+            <label for="provinsi">Pilih Provinsi:</label>
+            <select id="provinsi">
+                <option value="" selected disabled>Pilih Provinsi</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="kabupaten">Pilih Kabupaten:</label>
+            <select id="kabupaten">
+                <option value="" selected disabled>Pilih Kabupaten</option>
+            </select>
+        </div>
+
+        <button onclick="tampilkanJadwal()">Tampilkan Jadwal</button>
+        <div id="loading">⏳ Memuat jadwal, harap tunggu...</div>
+
+        <div class="jadwal-container">
+            <div id="jadwal"></div>
+        </div>
+
+        <div class="footer">
+            © 2025 Jadwal Imsakiyah - Semoga Ramadhan kita diberkahi
+        </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+    const hadithList = [
+        { text: "Barang siapa berpuasa Ramadhan dengan iman dan mengharap pahala, akan diampuni dosa-dosanya yang telah lalu.", source: "(HR. Bukhari & Muslim)" },
+        { text: "Puasa adalah perisai, maka janganlah berkata keji dan janganlah berbuat bodoh.", source: "(HR. Bukhari)" },
+        { text: "Sesungguhnya dalam surga ada satu pintu yang disebut Ar-Rayyan, yang hanya dimasuki oleh orang-orang yang berpuasa.", source: "(HR. Bukhari & Muslim)" },
+        { text: "Barang siapa memberi makan orang yang berpuasa, ia mendapat pahala seperti orang yang berpuasa.", source: "(HR. Tirmidzi)" },
+        { text: "Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya.", source: "(HR. Ahmad, Thabrani, dan Daruqutni)" }
+    ];
+
+    let randomIndex = Math.floor(Math.random() * hadithList.length);
+    let hadith = hadithList[randomIndex];
+
+    document.getElementById("hadith-text").innerText = `"${hadith.text}"`;
+    document.getElementById("hadith-source").innerText = hadith.source;
+});
+        async function loadProvinsi() {
+            try {
+                let response = await fetch('data/provinsi.json');
+                let provinsi = await response.json();
+                let selectProvinsi = document.getElementById('provinsi');
+
+                selectProvinsi.innerHTML = '<option value="" selected disabled>Pilih Provinsi</option>';
+                provinsi.forEach(p => {
+                    let option = document.createElement('option');
+                    option.value = p.id;
+                    option.textContent = p.name;
+                    selectProvinsi.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Error loading provinsi:", error);
+                alert("Gagal memuat data provinsi. Silakan refresh halaman.");
+            }
+        }
+
+        async function loadKabupaten(provinsiId) {
+            try {
+                let response = await fetch('data/imsak.json');
+                let data = await response.json();
+                let kabupatenSelect = document.getElementById('kabupaten');
+
+                kabupatenSelect.innerHTML = '<option value="" selected disabled>Pilih Kabupaten</option>';
+                let kabupatenSet = new Set();
+
+                data.forEach(d => {
+                    if (d.provinsi_id === provinsiId) {
+                        kabupatenSet.add(d.kabupaten);
+                    }
+                });
+
+                // Convert to array and sort
+                let kabupatenArray = Array.from(kabupatenSet).sort();
+
+                kabupatenArray.forEach(kab => {
+                    let option = document.createElement('option');
+                    option.textContent = kab;
+                    kabupatenSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Error loading kabupaten:", error);
+                alert("Gagal memuat data kabupaten. Silakan coba lagi.");
+            }
+        }
+
+        function getTanggalHariIni() {
+            let today = new Date();
+            return today.getDate(); // Format angka (1, 2, 3, ...)
+        }
+
+        async function tampilkanJadwal() {
+            let provinsiId = document.getElementById('provinsi').value;
+            let kabupaten = document.getElementById('kabupaten').value;
+            let jadwalDiv = document.getElementById('jadwal');
+            let loadingText = document.getElementById('loading');
+
+            if (!provinsiId || !kabupaten) {
+                alert("Silakan pilih provinsi dan kabupaten terlebih dahulu.");
+                return;
+            }
+
+            // Tampilkan loading
+            loadingText.style.display = "block";
+            jadwalDiv.innerHTML = '';
+
+            try {
+                let response = await fetch('data/imsak.json');
+                let data = await response.json();
+
+                let jadwal = data.find(d => d.provinsi_id === provinsiId && d.kabupaten === kabupaten);
+                let today = getTanggalHariIni();
+
+                if (jadwal) {
+                    let table = `
+                        <table>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Hari</th>
+                                <th>Imsak</th>
+                                <th>Subuh</th>
+                                <th>Maghrib</th>
+                            </tr>`;
+                    
+                    let adaJadwal = false;
+                    
+                    // Konversi nama hari
+                    const namaBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+                    const namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
+                    for (let key in jadwal.data) {
+                        let entry = jadwal.data[key];
+                        
+                        if (parseInt(entry.tanggal) >= today) {
+                            adaJadwal = true;
+                            
+                            // Mendapatkan nama hari
+                            const tahun = 2025; // Tahun Ramadhan 2025
+                            const bulan = 2; // Asumsi bulan Maret 2025 (0-indexed, 2 = Maret)
+                            const tanggal = parseInt(entry.tanggal);
+                            const date = new Date(tahun, bulan, tanggal);
+                            const hari = namaHari[date.getDay()];
+                            
+                            // Menentukan apakah hari ini
+                            const isToday = parseInt(entry.tanggal) === today;
+                            const rowClass = isToday ? 'class="today"' : '';
+                            
+                            table += `
+                                <tr ${rowClass}>
+                                    <td>${entry.tanggal} Maret</td>
+                                    <td>${hari}</td>
+                                    <td>${entry.imsak}</td>
+                                    <td>${entry.subuh}</td>
+                                    <td>${entry.maghrib}</td>
+                                </tr>`;
+                        }
+                    }
+
+                    table += '</table>';
+                    
+                    if (adaJadwal) {
+                        jadwalDiv.innerHTML = table;
+                    } else {
+                        jadwalDiv.innerHTML = `
+                            <div style="text-align: center; padding: 20px;">
+                                <p style="font-size: 18px; color: var(--accent-color);">Tidak ada jadwal tersisa untuk hari ini dan seterusnya.</p>
+                                <p style="margin-top: 10px;">Mungkin bulan Ramadhan telah berakhir. Semoga amal ibadah kita diterima.</p>
+                            </div>`;
+                    }
+                } else {
+                    jadwalDiv.innerHTML = `
+                        <div style="text-align: center; padding: 20px;">
+                            <p style="font-size: 18px; color: var(--accent-color);">Jadwal tidak ditemukan.</p>
+                            <p style="margin-top: 10px;">Silakan pilih kabupaten lain atau periksa kembali pilihan Anda.</p>
+                        </div>`;
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                jadwalDiv.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <p style="font-size: 18px; color: var(--accent-color);">Terjadi kesalahan dalam memuat data.</p>
+                        <p style="margin-top: 10px;">Silakan refresh halaman dan coba lagi.</p>
+                    </div>`;
+            } finally {
+                loadingText.style.display = "none";
+            }
+        }
+
+        document.getElementById('provinsi').addEventListener('change', (e) => loadKabupaten(e.target.value));
+        window.onload = loadProvinsi;
+    </script>
+</body>
+</html>
